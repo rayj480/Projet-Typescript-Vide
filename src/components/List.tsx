@@ -38,7 +38,7 @@ export class Liste extends React.Component<undefined,ListState> {
             <ul>
                 {
                     this.state.list.map((t: Task) => {
-                        return <li key={t.props.id}>{t.render}</li>
+                        return <li key={t.props.id}>{t.props.name}</li>
                     })
                 }
             </ul>
