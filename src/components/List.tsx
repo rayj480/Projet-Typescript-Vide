@@ -20,6 +20,14 @@ export class Liste extends React.Component<undefined,ListState> {
             text:""
         })
     }
+    remove(item : TaskData):void {
+        var index = this.state.list.indexOf(item, 0);
+        this.state.list.splice(index,1);
+        this.setState({
+            list : this.state.list,
+            text : this.state.text
+        })
+    }
     //méthode appelée au clic sur le
     handleClick(event: any) : void {
         /*id++;
@@ -34,11 +42,11 @@ export class Liste extends React.Component<undefined,ListState> {
     }
     //méthode appelée a chaque changement de texte dans la barre d'ajout de tache
     handleChange(event: any) : void{
-        this.setState({ text: event.target.value}) ;
+        this.setState({ text: event.target.value});
     }
 
     handleClickRadio(event : any){
-        this.props.properties.isDone = true;
+        this.remove(event.target.value);
     }
     //render de la liste
     render(): JSX.Element {
@@ -51,9 +59,10 @@ export class Liste extends React.Component<undefined,ListState> {
                 {
                     this.state.list.map((t: TaskData) => {
                         //return <li key={t.props.id}>{t.render /* JON :  ici tu peux directment appeler ton composant <Task name={} id={} /> */ }</li> 
-                        if (!t.isDone){
-                            return <Task properties={t}/>
-                        }
+                        return <li key={t.id}>
+                            <input type="checkbox" id={t.id.toString()} onClick={this.handleClickRadio.bind(this)}/>
+                            <label htmlFor={t.id.toString()}>{t.name}</label>
+                            </li>
                     })
                 }
             </ul>
